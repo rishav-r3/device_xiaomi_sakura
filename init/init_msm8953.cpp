@@ -23,10 +23,54 @@
 #include <android-base/logging.h>
 #include <android-base/properties.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/_system_properties.h>
 
 #include "property_service.h"
 #include "vendor_init.h"
+
+static const char *snet_prop_key[] = {
+	"ro.boot.vbmeta.device_state",
+	"ro.boot.verifiedbootstate",
+	"ro.boot.flash.locked",
+	"ro.boot.selinux",
+	"ro.boot.veritymode",
+	"ro.boot.warranty_bit",
+	"ro.warranty_bit",
+	"ro.debuggable",
+	"ro.secure",
+	"ro.build.type",
+	"ro.build.keys",
+	"ro.build.tags",
+	"ro.system.build.tags",
+	"ro.vendor.boot.warranty_bit",
+	"ro.vendor.warranty_bit",
+	"vendor.boot.vbmeta.device_state",
+	"vendor.boot.verifiedbootstate",
+	NULL
+};
+
+static const char *snet_prop_value[] = {
+	"locked", // ro.boot.vbmeta.device_state
+	"green", // ro.boot.verifiedbootstate
+	"1", // ro.boot.flash.locked
+	"enforcing", // ro.boot.selinux
+	"enforcing", // ro.boot.veritymode
+	"0", // ro.boot.warranty_bit
+	"0", // ro.warranty_bit
+	"0", // ro.debuggable
+	"1", // ro.secure
+	"user", // ro.build.type
+	"release-keys", // ro.build.keys
+	"release-keys", // ro.build.tags
+	"release-keys", // ro.system.build.tags
+	"0", // ro.vendor.boot.warranty_bit
+	"0", // ro.vendor.warranty_bit
+	"locked", // vendor.boot.vbmeta.device_state
+	"green", // vendor.boot.verifiedbootstate
+	NULL
+};
 
 void property_override(char const prop[], char const value[], bool add = true)
 {
@@ -70,21 +114,27 @@ void load_dalvik_properties() {
     }
 }
 
+static void workaround_snet_properties() {
+
+	// Hide all sensitive props
+	for (int i = 0; snet_prop_key[i]; ++i) {
+		property_override(snet_prop_key[i], snet_prop_value[i]);
+	}
+}
+
 void vendor_load_properties() {
     load_dalvik_properties();
 
     // fingerprint
     property_override("ro.build.description", "redfin-user 11 RQ1A.201205.010 6953398 release-keys");
     property_override_multifp("ro.build.fingerprint", "ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "ro.bootimage.build.fingerprint", "google/redfin/redfin:11/RQ1A.201205.010/6953398:user/release-keys");
-	
-    // Magisk Hide
-    property_override("ro.boot.verifiedbootstate", "green");
-    property_override("ro.build.type", "user");
-    property_override("ro.build.tags", "release-keys");
 
     // Misc
     property_override("ro.apex.updatable", "true");
     property_override("ro.oem_unlock_supported", "0");
     property_override("ro.com.google.clientidbase", "android-xiaomi");
     property_override("ro.com.google.clientidbase.ms", "android-xiaomi-rev1");
+
+    // Workaround SafetyNet
+    workaround_snet_properties();
 }
