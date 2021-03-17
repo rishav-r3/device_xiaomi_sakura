@@ -1,0 +1,17 @@
+[
+    {,
+        "repository": "device_xiaomi_sakura",
+        "target_path": "device/xiaomi/sakura"
+        "revision": "kangos"
+    },
+    {
+        "repository": "vendor_xiaomi",
+        "target_path": "vendor/xiaomi",
+        "revision": "11"
+    },
+    {
+        "repository": "revvz-kernel",
+        "target_path": "kernel/xiaomi/msm8953",
+        "revision": "revvz"
+    }
+]
