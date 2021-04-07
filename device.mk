@@ -342,16 +342,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
-# Oneplus Stuff
-PRODUCT_PACKAGES += \
-    OnePlusRecentsProvider \
-    OPLauncher2
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/OPLauncher2/etc/permissions/privapp-permissions-op-launcher.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-op-launcher.xml \
-    $(LOCAL_PATH)/OPLauncher2/etc/sysconfig/op-launcher-hiddenapi-package-whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/op-launcher-hiddenapi-package-whitelist.xml \
-    $(LOCAL_PATH)/OPLauncher2/etc/default-permissions/default-permissions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/default-permissions.xml 
-
 # Properties
 -include device/xiaomi/sakura/prop.mk
 
