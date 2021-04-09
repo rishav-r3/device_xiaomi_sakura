@@ -28,17 +28,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 $(call inherit-product, device/xiaomi/sakura/device.mk)
 
 # Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/kangos/config/common.mk)
-
-# Inherit some common KangOS stuff
-KANGOS_BUILDTYPE := OFFICIAL
-PRODUCT_PRODUCT_PROPERTIES += \
-ro.kangos.maintainer=Soumyajit_Paul \
-ro.kangos.cpu=SDM625
+$(call inherit-product, vendor/arrow/config/common.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := sakura
-PRODUCT_NAME := kangos_sakura
+PRODUCT_NAME := arrow_sakura
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi 6 Pro
@@ -51,3 +45,5 @@ TARGET_FACE_UNLOCK_SUPPORTED := true
 IS_PHONE := true
 TARGET_GAPPS_ARCH := arm64
 TARGET_SUPPORTS_GOOGLE_RECORDER := true
+
+SELINUX_IGNORE_NEVERALLOWS := true

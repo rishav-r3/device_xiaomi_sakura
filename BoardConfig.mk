@@ -228,3 +228,6 @@ TARGET_USES_ALTERNATIVE_MANUAL_NETWORK_SELECT := true
 # Inherit from the proprietary version
 -include vendor/xiaomi/sakura/BoardConfigVendor.mk
 -include vendor/xiaomi/msm8953-common/BoardConfigVendor.mk
+
+
+SELINUX_IGNORE_NEVERALLOWS := true
