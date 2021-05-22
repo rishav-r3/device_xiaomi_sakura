@@ -14,10 +14,10 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/palladium_sakura.mk
+    $(LOCAL_DIR)/arrow_sakura.mk
 
 
 COMMON_LUNCH_CHOICES := \
-    palladium_sakura-user \
-    palladium_sakura-userdebug \
-    palladium_sakura-eng
+    arrow_sakura-user \
+    arrow_sakura-userdebug \
+    arrow_sakura-eng

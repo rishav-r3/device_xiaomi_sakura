@@ -28,23 +28,23 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 $(call inherit-product, device/xiaomi/sakura/device.mk)
 
 # Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/palladium/config/common_full_phone.mk)
+$(call inherit-product, vendor/arrow/config/common.mk)
+
+# bootanimation
+TARGET_BOOT_ANIMATION_RES := 1080
 
 # Device identifier. This must come after all inclusions
 DEVICE_MAINTAINER := Cs
 PRODUCT_DEVICE := sakura
-PRODUCT_NAME := palladium_sakura
+PRODUCT_NAME := arrow_sakura
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi 6 Pro
 PRODUCT_MANUFACTURER := Xiaomi
 TARGET_VENDOR := Xiaomi
-
 TARGET_FACE_UNLOCK_SUPPORTED := true
 
-# Gapps Flag
-IS_PHONE := true
+#GAPPS
 TARGET_GAPPS_ARCH := arm64
+TARGET_INCLUDE_STOCK_ARCORE := true
 TARGET_SUPPORTS_GOOGLE_RECORDER := true
-
-
