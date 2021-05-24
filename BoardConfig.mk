@@ -148,6 +148,12 @@ TARGET_KERNEL_CONFIG := sleepy_defconfig
 TARGET_KERNEL_VERSION := 4.9
 TARGET_KERNEL_CLANG_COMPILE := true
 
+# Proton-clang
+TARGET_KERNEL_CLANG_VERSION := proton
+TARGET_KERNEL_CLANG_COMPILE := true
+KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-proton/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-gnu-
+
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
