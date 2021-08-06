@@ -1,20 +1,18 @@
 [
   {
     "repository" : "kernel_xiaomi_sakura",
-    "target_path": "kernel/xiaomi/msm8953",
-    "clone-depth": "1"
+    "target_path": "kernel/xiaomi/msm8953"
   },
   {
     "repository" : "vendor_xiaomi_sakura",
-    "target_path": "vendor/xiaomi",
-    "clone-depth": "1"
+    "target_path": "vendor/xiaomi"
   },
   {
     "repository" : "Jabiyeff-Project/android_hardware_qcom_audio",
     "target_path": "hardware/qcom-caf/msm8996/audio",
     "branch"     : "11.0",
     "clone-depth": "1",
-    "remote"     : "github" 
+    "remote"     : "github"
   },
   {
     "repository" : "Jabiyeff-Project/android_hardware_qcom_display",
@@ -35,12 +33,6 @@
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-elf",
     "branch"     : "gcc-master",
     "clone-depth": "1",
-    "remote"     : "github"
-  },
-  {
-    "repository" : "geopd/vendor_custom_prebuilts",
-    "target_path": "vendor/custom/prebuilts",
-    "branch"     : "master",
     "remote"     : "github"
   }
 ]
