@@ -28,6 +28,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 $(call inherit-product, device/xiaomi/sakura/device.mk)
 
 # Inherit some common ConquerOS stuff.
+TARGET_USE_GAPPS := true
+TARGET_BOOT_ANIMATION_RES := 1080
 $(call inherit-product, vendor/conquer/config/common.mk)
 
 # Device identifier. This must come after all inclusions
