@@ -130,6 +130,11 @@ ro.fm.transmitter=false
 PRODUCT_PROPERTY_OVERRIDES += \
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
+# Iorap
+PRODUCT_PROPERTY_OVERRIDES += \
+    iorapd.perfetto.enable=true \
+    iorapd.readahead.enable=true
+
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
 av.debug.disable.pers.cache=1 \
