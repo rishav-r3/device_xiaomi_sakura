@@ -135,6 +135,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     iorapd.perfetto.enable=true \
     iorapd.readahead.enable=true
 
+# Graphics
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.egl=adreno \
+    ro.hardware.vulkan=adreno
+
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
 av.debug.disable.pers.cache=1 \
