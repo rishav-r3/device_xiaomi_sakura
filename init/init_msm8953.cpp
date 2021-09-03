@@ -126,8 +126,9 @@ void vendor_load_properties() {
     load_dalvik_properties();
 
     // fingerprint
-    property_override("ro.build.description", "redfin-user 11 RQ2A.210505.003 7255357 release-keys");
-    property_override_multifp("ro.build.fingerprint", "ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "ro.bootimage.build.fingerprint", "google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys");
+    property_override("ro.build.description", "redfin-user 11 RQ3A.210805.001.A1/7474174 release-keys");
+    property_override_multifp("ro.build.fingerprint", "ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "ro.bootimage.build.fingerprint", "google/redfin/redfin:11/RQ3A.210805.001.A1/7474174:user/release-keys");
+
 
     // Misc
     property_override("ro.apex.updatable", "true");
