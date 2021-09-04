@@ -193,6 +193,7 @@ VENDOR_SECURITY_PATCH := 2020-02-05
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
+SELINUX_IGNORE_NEVERALLOW_ON_USER=true
 
 # Sepolicy
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
