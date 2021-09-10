@@ -201,7 +201,6 @@ VENDOR_SECURITY_PATCH := 2020-11-05
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 
 # Sepolicy
-SELINUX_IGNORE_NEVERALLOWS := true
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # SurfaceFlinger
