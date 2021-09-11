@@ -118,6 +118,11 @@ drm.service.enabled=true
 PRODUCT_PROPERTY_OVERRIDES += \
 vendor.qc2.use.bqpool=1
 
+# Enable blurs, hidden under dev option
+ro.surface_flinger.supports_background_blur=1
+persist.sys.sf.disable_blurs=1
+ro.sf.blurs_are_expensive=1
+
 # Fingerprint
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.qfp=false
