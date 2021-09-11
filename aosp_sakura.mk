@@ -27,14 +27,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 # Inherit from mido device
 $(call inherit-product, device/xiaomi/sakura/device.mk)
 
-# Inherit some common Aosp stuff.
+# Inherit some common PixelPlusUI  stuff.
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # bootanimation
 TARGET_BOOT_ANIMATION_RES := 1080
 
 # Device identifier. This must come after all inclusions
-DEVICE_MAINTAINER := mr_rishav_10
 PRODUCT_DEVICE := sakura
 PRODUCT_NAME := aosp_sakura
 BOARD_VENDOR := Xiaomi
@@ -46,5 +45,9 @@ TARGET_FACE_UNLOCK_SUPPORTED := true
 
 #GAPPS
 TARGET_GAPPS_ARCH := arm64
-TARGET_INCLUDE_STOCK_ARCORE := true
-TARGET_SUPPORTS_GOOGLE_RECORDER := true
+TARGET_INCLUDE_STOCK_ARCORE := false
+TARGET_SUPPORTS_GOOGLE_RECORDER := false
+TARGET_INCLUDE_LIVE_WALLPAPERS := false
+
+# OFFICAL STUFF
+CUSTOM_BUILD_TYPE := OFFICIAL

@@ -245,3 +245,10 @@ persist.vendor.usb.config.extra=none
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
 wifi.interface=wlan0
+
+# PixelPlusUI OFFICIAL
+ro.ppui.device_name=Redmi 6 Pro
+ro.ppui.version=3.9
+ro.ppui.version_code=Eternal
+ro.ppui.is_official=true
+ro.ppui.maintainer_name=mr_rishav_10
