@@ -89,6 +89,9 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 # CNE / DPM
 BOARD_USES_QCNE := true
 
+# Device Properties
+TARGET_PRODUCT_PROP := $(DEVICE_PATH)/product.prop
+
 # Display
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
