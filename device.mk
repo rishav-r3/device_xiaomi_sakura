@@ -255,6 +255,15 @@ PRODUCT_PACKAGES += \
     libhidltransport.vendor \
     libhwbinder.vendor
 
+# Telephony 
+PRODUCT_PACKAGES += \
+    telephony-ext \
+    ims-ext-common \
+    services-ext
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
 # IMS
 PRODUCT_PACKAGES += \
     ims-ext-common \
