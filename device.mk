@@ -241,6 +241,10 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.3-service.xiaomi_msm8953
+
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
