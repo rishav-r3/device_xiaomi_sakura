@@ -228,6 +228,7 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_PACKAGES += \
+    android.hardware.gnss@2.1.vendor \
     libwifi-hal-ctrl
 
 PRODUCT_COPY_FILES += \
