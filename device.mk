@@ -150,7 +150,9 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.a2dp@1.0-service \
     libldacBT_dec \
     libbt-vendor \
-    libbthost_if
+    libbthost_if \
+    vendor.qti.hardware.btconfigstore@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@2.0.vendor
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -211,6 +213,7 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.3.vendor \
+    android.hardware.drm@1.4.vendor \
     android.hardware.drm@1.4-service.clearkey
 
 # FM
@@ -229,6 +232,7 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_PACKAGES += \
+    android.hardware.gnss@2.0.vendor \
     android.hardware.gnss@2.1.vendor \
     libwifi-hal-ctrl
 
@@ -324,7 +328,7 @@ PRODUCT_COPY_FILES += \
 # Netutils
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0 \
-    android.system.net.netd@1.0 \
+    android.system.net.netd@1.1 \
     libandroid_net
 
 # Network
