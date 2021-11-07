@@ -324,6 +324,10 @@ PRODUCT_PACKAGES += \
     android.system.net.netd@1.0 \
     libandroid_net
 
+# Network
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1.vendor
+
 # Offline charger
 PRODUCT_PACKAGES += \
     charger_res_images \
