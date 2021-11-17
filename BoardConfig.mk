@@ -200,6 +200,7 @@ VENDOR_SECURITY_PATCH := 2020-02-05
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
+BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
 
 # Sepolicy
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
