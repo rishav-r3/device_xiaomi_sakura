@@ -1,17 +1,29 @@
 /*
- * Copyright (C) 2019 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+   Copyright (c) 2016, The CyanogenMod Project
+   Copyright (c) 2019, The LineageOS Project
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+    * Neither the name of The Linux Foundation nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+   THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+   ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+   BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+   BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+   WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <cstdlib>
@@ -19,6 +31,7 @@
 #include <string.h>
 #include <sys/sysinfo.h>
 #include <unistd.h>
+#include <vector>
 
 #include <android-base/logging.h>
 #include <android-base/properties.h>
@@ -30,52 +43,11 @@
 #include "property_service.h"
 #include "vendor_init.h"
 
-static const char *snet_prop_key[] = {
-	"ro.boot.vbmeta.device_state",
-	"ro.boot.verifiedbootstate",
-	"ro.boot.flash.locked",
-	"ro.boot.selinux",
-	"ro.boot.veritymode",
-	"ro.boot.warranty_bit",
-	"ro.warranty_bit",
-	"ro.debuggable",
-	"ro.secure",
-	"ro.build.type",
-	"ro.build.keys",
-	"ro.build.tags",
-	"ro.system.build.tags",
-	"ro.vendor.boot.warranty_bit",
-	"ro.vendor.warranty_bit",
-	"vendor.boot.vbmeta.device_state",
-	"vendor.boot.verifiedbootstate",
-	NULL
-};
-
-static const char *snet_prop_value[] = {
-	"locked", // ro.boot.vbmeta.device_state
-	"green", // ro.boot.verifiedbootstate
-	"1", // ro.boot.flash.locked
-	"enforcing", // ro.boot.selinux
-	"enforcing", // ro.boot.veritymode
-	"0", // ro.boot.warranty_bit
-	"0", // ro.warranty_bit
-	"0", // ro.debuggable
-	"1", // ro.secure
-	"user", // ro.build.type
-	"release-keys", // ro.build.keys
-	"release-keys", // ro.build.tags
-	"release-keys", // ro.system.build.tags
-	"0", // ro.vendor.boot.warranty_bit
-	"0", // ro.vendor.warranty_bit
-	"locked", // vendor.boot.vbmeta.device_state
-	"green", // vendor.boot.verifiedbootstate
-	NULL
-};
+using android::base::GetProperty;
 
 void property_override(char const prop[], char const value[], bool add = true)
 {
     auto pi = (prop_info *) __system_property_find(prop);
-
     if (pi != nullptr) {
         __system_property_update(pi, value, strlen(value));
     } else if (add) {
@@ -83,59 +55,84 @@ void property_override(char const prop[], char const value[], bool add = true)
     }
 }
 
-void property_override_multifp(char const buildfp[], char const systemfp[],
-        char const bootimagefp[], char const vendorfp[], char const value[]) {
-    property_override(buildfp, value);
-    property_override(systemfp, value);
-    property_override(bootimagefp, value);
-    property_override(vendorfp, value);
-}
+/* From Magisk@jni/magiskhide/hide_policy.cpp */
+static const char *prop_key[] =
+        { "ro.boot.vbmeta.device_state", "ro.boot.verifiedbootstate", "ro.boot.flash.locked",
+          "ro.boot.veritymode", "ro.boot.warranty_bit", "ro.warranty_bit",
+          "ro.debuggable", "ro.secure", "ro.build.type", "ro.build.tags",
+          "ro.vendor.boot.warranty_bit", "ro.vendor.warranty_bit",
+          "vendor.boot.vbmeta.device_state", "vendor.boot.verifiedbootstate", nullptr };
 
-void load_dalvik_properties() {
-    struct sysinfo sys;
+static const char *prop_val[] =
+        { "locked", "green", "1",
+          "enforcing", "0", "0",
+          "0", "1", "user", "release-keys",
+          "0", "0",
+          "locked", "green", nullptr };
 
-    sysinfo(&sys);
-    if (sys.totalram > 3072ull * 1024 * 1024) {
-        // from - phone-xxhdpi-4096-dalvik-heap.mk
-	property_override("dalvik.vm.heapstartsize", "8m");
-	property_override("dalvik.vm.heaptargetutilization", "0.6");
-	property_override("dalvik.vm.heapgrowthlimit", "192m");
-	property_override("dalvik.vm.heapsize", "512m");
-	property_override("dalvik.vm.heapmaxfree", "16m");
-	property_override("dalvik.vm.heapminfree", "4m");
-    } else {
-        // from - phone-xhdpi-2048-dalvik-heap.mk
-	property_override("dalvik.vm.heapstartsize", "8m");
-	property_override("dalvik.vm.heaptargetutilization", "0.7");
-	property_override("dalvik.vm.heapgrowthlimit", "192m");
-	property_override("dalvik.vm.heapsize", "512m");
-	property_override("dalvik.vm.heapmaxfree", "8m");
-	property_override("dalvik.vm.heapminfree", "2m");
+static void workaround_properties() {
+
+    // Hide all sensitive props
+    for (int i = 0; prop_key[i]; ++i) {
+        property_override(prop_key[i], prop_val[i], false);
     }
 }
 
-static void workaround_snet_properties() {
+std::vector<std::string> ro_props_default_source_order = {
+        "", "bootimage.", "odm.", "product.", "system.", "system_ext.", "vendor.",
+};
 
-	// Hide all sensitive props
-	for (int i = 0; snet_prop_key[i]; ++i) {
-		property_override(snet_prop_key[i], snet_prop_value[i]);
+void set_ro_build_prop(const std::string& prop, const std::string& value) {
+    for (const auto& source : ro_props_default_source_order) {
+        auto prop_name = "ro." + source + "build." + prop;
+        if (source == "")
+            property_override(prop_name.c_str(), value.c_str());
+        else
+            property_override(prop_name.c_str(), value.c_str(), false);
+    }
+};
+
+void load_dalvik_properties()
+{
+	struct sysinfo sys;
+
+	sysinfo(&sys);
+
+	if (sys.totalram > 3072ull * 1024 * 1024)
+	{
+		// from - phone-xxhdpi-4096-dalvik-heap.mk
+		property_override("dalvik.vm.heapstartsize", "8m");
+		property_override("dalvik.vm.heaptargetutilization", "0.6");
+		property_override("dalvik.vm.heapgrowthlimit", "256m");
+		property_override("dalvik.vm.heapsize", "512m");
+		property_override("dalvik.vm.heapmaxfree", "16m");
+		property_override("dalvik.vm.heapminfree", "8m");
+	}
+	else
+	{
+                // from - phone-xhdpi-2048-dalvik-heap.mk
+		property_override("dalvik.vm.heapstartsize", "8m");
+		property_override("dalvik.vm.heaptargetutilization", "0.7");
+		property_override("dalvik.vm.heapgrowthlimit", "192m");
+		property_override("dalvik.vm.heapsize", "512m");
+		property_override("dalvik.vm.heapmaxfree", "8m");
+		property_override("dalvik.vm.heapminfree", "2m");
 	}
 }
 
-void vendor_load_properties() {
-    load_dalvik_properties();
+void vendor_load_properties()
+{
+        std::string fingerprint;
+        std::string description;
 
-    // fingerprint
-    property_override("ro.build.description", "redfin-user 11 RQ3A.210805.001.A1/7474174 release-keys");
-    property_override_multifp("ro.build.fingerprint", "ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "ro.bootimage.build.fingerprint", "google/redfin/redfin:11/RQ3A.210805.001.A1/7474174:user/release-keys");
+	// fingerprint
+        fingerprint = "google/redfin/redfin:12/SPB5.210812.002/7671067:user/release-keys";
+        description = "redfin-user 12 SPB5.210812.002 7671067 release-keys";
 
+        set_ro_build_prop("fingerprint", fingerprint);
+        property_override("ro.build.description", description.c_str());
 
-    // Misc
-    property_override("ro.apex.updatable", "true");
-    property_override("ro.oem_unlock_supported", "0");
-    property_override("ro.com.google.clientidbase", "android-xiaomi");
-    property_override("ro.com.google.clientidbase.ms", "android-xiaomi-rev1");
-
-    // Workaround SafetyNet
-    workaround_snet_properties();
+        load_dalvik_properties();
+        workaround_properties();
 }
+
