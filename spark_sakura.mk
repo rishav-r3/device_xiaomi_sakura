@@ -27,17 +27,17 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 # Inherit from mido device
 $(call inherit-product, device/xiaomi/sakura/device.mk)
 
-# Inherit some common CorvusOS stuff.
-$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
+# Inherit some common SparkOS stuff.
+$(call inherit-product, vendor/spark/config/common_full_phone.mk)
 
 # Poduct spec
 IS_PHONE := true
 scr_resolution := 1080
 
 # Device identifier. This must come after all inclusions
-DEVICE_MAINTAINER := Yadavmohit19
+DEVICE_MAINTAINER := mr_rishav_10
 PRODUCT_DEVICE := sakura
-PRODUCT_NAME := aosp_sakura
+PRODUCT_NAME := spark_sakura
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi 6 Pro
@@ -53,3 +53,7 @@ TARGET_FACE_UNLOCK_SUPPORTED := true
 TARGET_GAPPS_ARCH := arm64
 TARGET_SUPPORTS_GOOGLE_RECORDER := true
 TARGET_INCLUDE_STOCK_ARCORE := true
+TARGET_BOOT_ANIMATION_RES := 1080
+WITH_GAPPS=true
+#Official
+ro.spark.maintainer=RISHAV

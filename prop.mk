@@ -322,3 +322,5 @@ wifi.interface=wlan0
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 persist.device_config.runtime_native.usap_pool_enabled=true
 
+#Official
+ro.spark.maintainer=mr_rishav_10
